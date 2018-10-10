@@ -1,0 +1,37 @@
+CLASSIFICATION,ID_LCDB,IsVegation,RootingDepth_Max_cm,RootPerc30cm_%,CropFactor,storageVegMaxLai,DESCRIPTION
+AlpineGrass,15,1,15.0,35.0,0.9,0.62,Alpine Grass/Herbfield   
+Estuarine    ,22,1,22.0,35.0,0.9,0.62,Estuarine    
+Shortrotation    ,30,1,30.0,35.0,0.9,0.62,Short-rotation    
+Orchards_Vineyards   ,33,1,33.0,35.0,0.9,0.62,"Orchards, Vineyards   "
+HighExoticGrassland ,40,1,40.0,35.0,0.9,0.62,High Producing Exotic Grassland 
+LowGrasslandExotic ,41,1,41.0,35.0,0.9,0.62,Low Producing Grassland Exotic 
+TallTussock   ,43,1,43.0,35.0,0.9,0.62,Tall Tussock   
+DepletedGrassland   ,44,1,44.0,35.0,0.9,0.62,Depleted Grassland   
+FreshwaterVegetation  ,45,1,45.0,35.0,0.9,0.62,Herbaceous Freshwater Vegetation  
+SalineVegetation  ,46,1,46.0,35.0,0.9,0.62,Herbaceous Saline Vegetation  
+Flaxland    ,47,1,47.0,35.0,0.9,0.62,Flaxland    
+Fernland    ,50,1,50.0,35.0,0.9,0.62,Fernland    
+Gorse_Broom  ,51,1,51.0,35.0,0.9,0.62,Gorse and/or Broom  
+Manuka_Kanuka  ,52,1,52.0,35.0,0.9,0.62,Manuka and/or Kanuka  
+Broadleaved,54,1,54.0,35.0,0.9,0.62,Broadleaved Indigenous Hardwoods  
+SubAlpineShrubland  ,55,1,55.0,35.0,0.9,0.62,Sub Alpine Shrubland  
+MixedExoticShrubland  ,56,1,56.0,35.0,0.9,0.62,Mixed Exotic Shrubland  
+Matagouri_GreyScrub ,58,1,58.0,35.0,0.9,0.62,Matagouri or Grey Scrub 
+Forest_Harvested  ,64,1,64.0,35.0,0.9,0.62,Forest - Harvested  
+Deciduous_Hardwoods   ,68,1,68.0,35.0,0.9,0.62,Deciduous Hardwoods   
+Indigenous_Forest   ,69,1,69.0,35.0,0.9,0.62,Indigenous Forest   
+Mangrove    ,70,1,70.0,35.0,0.9,0.62,Mangrove    
+Exotic_Forest   ,71,1,71.0,35.0,0.9,0.62,Exotic Forest   
+Peat_Shrubland,80,1,80.0,35.0,0.9,0.62,Peat Shrubland (Chatham Is) 
+Dune_Shrubland,81,1,81.0,35.0,0.9,0.62,Dune Shrubland (Chatham Is) 
+NoData,0,0,0.0,35.0,0,0,NoData
+BuiltUpArea   ,1,0,0.0,35.0,0,0,Built-up Area   
+OpenSpace  ,2,0,0.0,35.0,0,0,Urban Parkland/Open Space  
+Transport,5,0,0.0,35.0,0,0,Transport Infrastructure   
+Mine_Dump ,6,0,0.0,35.0,0,0,Surface Mine or Dump 
+Sand_Gravel  ,10,0,0.0,35.0,0,0,Sand or Gravel  
+Landslide    ,12,0,0.0,35.0,0,0,Landslide    
+Ice ,14,0,0.0,35.0,0,0,Permanent Snow and Ice 
+GravelRock  ,16,0,0.0,35.0,0,0,Gravel or Rock  
+Lake ,20,0,0.0,35.0,0,0,Lake or Pond  
+River    ,21,0,0.0,35.0,0,0,River    
