@@ -1,5 +1,5 @@
 #= HyCatch model =#
-cd("c:\\JOE\\Main\\MODELS\\HYDRO\\Distributed\\HyCatch\\Julia\\Hycatch_Model")
+cd("c:\\JOE\\Main\\MODELS\\HYDRO\\Distributed\\HyCatch\\Julia\\HyCatch")
 push!(LOAD_PATH, pwd())
 
 include("Option.jl")
@@ -19,8 +19,11 @@ function HYCATCH()
     #= =============== READING DATA ============== =#
 
 	if option.Dimension == "1D"
+		# Reading time series of climate data
 		Year_Climate, Month_Climate, Day_Climate, Seconds_Climate, ∑Pr_Data, PotEvap_Data, Temp_Data, ∑T_Temp, ∑T_PotEvap, Pr_∑T = read.CLIMATE_1D(path.Climate)
-		X = 1
+		
+		# We are in 1D
+		X = 1 
 		Y = 1
 		N_X = 1
 		N_Y = 1
@@ -35,10 +38,8 @@ function HYCATCH()
 		iPr = 1
 		iPotEvap = 1
 		iTemp = 1  # We start from iPr =2	
-	end
 	
-
-	if option.Dimension == "3D"
+	elseif option.Dimension == "3D"
 		# Reading dates of time series data
 		Catchment_X_True = RawArray.raread(path.Home_Input * "\\Catchment\\Catchment_X_True.ra")
 		Catchment_Y_True = RawArray.raread( path.Home_Input * "\\Catchment\\Catchment_Y_True.ra")
@@ -61,16 +62,17 @@ function HYCATCH()
 				# Getting data
 				if option.Dimension == "3D"
 					println("")
+					interpolate.d1.∑PR_2_PR_3D(Pr_∑T, Pr_Date, )
 				else
 					# Compute Pr [mm/ΔT]
-					∑Pr, Pr, iPr = interpolate.∑PR_2_PR(∑T, ∑Pr, iPr, ∑Pr_Data[:], Pr_∑T[:])
+					∑Pr, Pr, iPr = interpolate.d1.∑PR_2_PR(∑T, ∑Pr, iPr, ∑Pr_Data[:], Pr_∑T[:])
 				end
 
             # Compute PotEvap for the current ΔT
-            PotEvap, iPotEvap = interpolate.OBSstairs(∑T, iPotEvap, PotEvap_Data[:], ∑T_PotEvap[:])
+            PotEvap, iPotEvap = interpolate.d1.OBSstairs(∑T, iPotEvap, PotEvap_Data[:], ∑T_PotEvap[:])
 
             # Compute Temperature for the current Δ
-				Temp, iTemp = interpolate.OBSstairs(∑T, iTemp, Temp_Data[:], ∑T_Temp[:])
+				Temp, iTemp = interpolate.d1.OBSstairs(∑T, iTemp, Temp_Data[:], ∑T_Temp[:])
 
             #= =============== SNOW =============== =#
             if modules.Snow == "run"

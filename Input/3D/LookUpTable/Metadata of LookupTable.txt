@@ -1,0 +1,18 @@
+CLASSIFICATION: Short name of LCDB
+
+DESCRIPTION: A longer description of landuse	
+
+ID_LCDB: value of LCDB classication	
+
+IsVegation: Is the classification a vegetation, yes=1, no =0	
+
+RootingDepth_Max_cm: what is the potential maximum rootind depth.	
+
+RootPerc30cm_%: percentage of roots in the top 30cm	
+
+CropFactor: maximum crop factor.	
+
+storageVegMaxLai: this is equal to the value f of Eq. 17 of paper "Estimated distributed rainfall interception using a simple conceptual model
+and Moderate Resolution Imaging Spectroradiometer (MODIS)"	
+
+

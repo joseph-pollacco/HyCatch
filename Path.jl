@@ -6,7 +6,7 @@ module path
 	include(pwd() * "\\Option.jl")
 
 	# using option
-	Home = "C:\\JOE\\Main\\MODELS\\HYDRO\\Distributed\\HyCatch\\Julia\\HyCatch_Model\\"
+	Home = "C:\\JOE\\Main\\MODELS\\HYDRO\\Distributed\\HyCatch\\Julia\\HyCatch\\"
 	Home_Input = Home * "Input\\"  * option.Dimension 
 
    # LOOK UP TABLES
