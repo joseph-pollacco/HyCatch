@@ -5,7 +5,7 @@ push!(LOAD_PATH, pwd())
 include("Option.jl")
 include("Path.jl")
 include("Modules.jl")
-include("Read.jl")
+include("Readings.jl")
 include("Clock.jl")
 include("Interpolate.jl")
 include("Snow.jl")
@@ -20,7 +20,7 @@ function HYCATCH()
 
 	if option.Dimension == "1D"
 		# Reading time series of climate data
-		Year_Climate, Month_Climate, Day_Climate, Seconds_Climate, ∑Pr_Data, PotEvap_Data, Temp_Data, ∑T_Temp, ∑T_PotEvap, Pr_∑T = read.CLIMATE_1D(path.Climate)
+		Year_Climate, Month_Climate, Day_Climate, Seconds_Climate, ∑Pr_Data, PotEvap_Data, Temp_Data, ∑T_Temp, ∑T_PotEvap, Pr_∑T = readings.d1.CLIMATE(path.Climate)
 		
 		# We are in 1D
 		X = 1 
@@ -46,7 +46,7 @@ function HYCATCH()
 		Catchment_Information = RawArray.raread( path.Home_Input * "\\Catchment\\Catchment_Information.ra")
 		N_X, N_Y, N_Xy_True = Catchment_Information[:]
 
-		Pr_Date, Pr_∑T = read.DATES_3D(path.Home_Input * "\\Climate\\Pr\\ClimateDates.csv")
+		Pr_Date, Pr_∑T = readings.d3.DATES(path.Home_Input * "\\Climate\\Pr\\ClimateDates.csv")
 
 		∑T_Max = Pr_∑T[length(Pr_∑T[:])] # Maximum time of simulation which is based on precipitation data
 	end
