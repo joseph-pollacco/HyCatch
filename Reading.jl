@@ -5,32 +5,36 @@ module reading
 	using Dates, DelimitedFiles
 	export CLIMATE
 
+		# ==========================================
+		#		CLIMATE
+		# ==========================================
 		function CLIMATE(Path, LookUp, Interpolation)
-			X = 1 #1D
-			Y = 1 #1D
+			X = Y = 1 #1D
 			
 			# READING THE CLIMATE DATA		
 			Year, Nt, ~ =  toolbox.read.READ_HEADER(Path, "Year") 
 			Month, ~, ~ =  toolbox.read.READ_HEADER(Path, "Month")
 			Day, ~, ~ =  toolbox.read.READ_HEADER(Path, "Day")
-			Seconds, ~, ~ = toolbox.read.READ_HEADER(Path, "Second")
+			Second, ~, ~ = toolbox.read.READ_HEADER(Path, "Second")
 			χ_0, ~, ~ = toolbox.read.READ_HEADER(Path, LookUp) # Variables what to read
 
-			# Reserving memory
+			# RESERVING MEMORY
 			∑T =zeros(Float64, Nt) # Reserving cumulative time
+			Date_X = zeros(Float64, Nt, 4)
 			
 			if Interpolation == "∑"
 				∑χ = zeros(Float64, Nt, X, Y) # Cumulative X such as Pr
 
 			elseif Interpolation == "daily"
 				χ = zeros(Float64, Nt, X, Y) # Eg. temperature of PET
+			
 			end
 
 			# Computing ∑X or X in the correct format
 			# The first column is 0 just used for Δseconds
 			for iT = 2:Nt
 				#Computing elapse time between the 2 observations
-				Δseconds = Dates.value( Dates.DateTime(Year[iT], Month[iT], Day[iT], Seconds[iT]) - DateTime(Year[iT-1], Month[iT-1], Day[iT-1], Seconds[iT-1])) / 1000
+				Δseconds = Dates.value( Dates.DateTime(Year[iT], Month[iT], Day[iT], Second[iT]) - DateTime(Year[iT-1], Month[iT-1], Day[iT-1], Second[iT-1])) / 1000
 
 				∑T[iT] = ∑T[iT-1] + Δseconds # Cumulate time [seconds]
 
@@ -39,13 +43,22 @@ module reading
 
 				elseif Interpolation == "daily"
 					χ[iT,X,Y] = χ_0[iT] #  Eg. temperature of PET
+				
 				end
+				# Dates
+				Date_X[iT,1] = Year[iT]
+				Date_X[iT,2] = Month[iT]
+				Date_X[iT,3] = Day[iT]
+				Date_X[iT,4] = Second[iT]
+			
 			end # for
 
 			if Interpolation == "∑"
-				return Year, Month, Day, Seconds, ∑χ, ∑T
+				return Date_X, ∑χ, ∑T
+
 			elseif Interpolation == "daily"
-				return Year, Month, Day, Seconds, χ, ∑T
+				return Date_X, χ, ∑T
+			
 			end
 
 		end # CLIMATE
@@ -56,7 +69,7 @@ module reading
 
 	module d3 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	include("ToolBox.jl")
-
+	using Dates
 	export DATES
 
 		function DATES(Path)
@@ -86,7 +99,6 @@ module reading
 
 
 	end # module d3 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 
 end # module read
