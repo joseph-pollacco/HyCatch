@@ -21,65 +21,77 @@ module interpolate
 		Slope = (Y2 - Y1) / (X2 - X1)
 		
 		Intercept = (Y1 * X2 - X1 * Y2) / (X2 - X1)
-
 		return Slope, Intercept
 	end # POINTS_2_SlopeIntercept
-
 
 	
 	module d1
 		using interpolate
-		export  ∑PR_2_PR, OBSstairs
+		export  ∑χ_2_χ, OBSχ_2_χ
 
-		function ∑PR_2_PR(∑T, ∑Pr_Past, iPr, ∑Pr, Pr_∑T)
+		function ∑χ_2_χ(iχ, ∑T, ∑χ,  ∑χ_Obs, χ_∑T_Obs)
 			# Determening of we should increase iPr
 			Flag_Break = false
 			while !Flag_Break
-				if Pr_∑T[iPr] <= ∑T <= Pr_∑T[iPr+1]
+				if χ_∑T_Obs[iχ] <= ∑T <= χ_∑T_Obs[iχ+1]
 					Flag_Break = true
 					break
 				else 
-					iPr += 1
+					iχ += 1
 					Flag_Break = false
-				end #if
+				end
 			end #while
 
 			# Building a regression line which passes from POINT1 [Pr_∑T[iPr], ∑Pr[iPr]] and POINT2: [Pr_∑T[iPr+1], ∑Pr[iPr+1]]
-			Slope, Intercept = interpolate.POINTS_2_SlopeIntercept(Pr_∑T[iPr], ∑Pr[iPr], Pr_∑T[iPr+1], ∑Pr[iPr+1])
+			Slope, Intercept = interpolate.POINTS_2_SlopeIntercept(χ_∑T_Obs[iχ], ∑χ_Obs[iχ], χ_∑T_Obs[iχ+1], ∑χ_Obs[iχ+1])
 
-			∑Pr = Slope * ∑T + Intercept
-
+			∑χ_F = Slope * ∑T + Intercept
+			
 			# Precipitation [mm /  ΔT]
-			Pr =  abs(∑Pr -  ∑Pr_Past)
+			χ = abs(∑χ_F - ∑χ)
 
-			# Cleaning up
-			Flag_Break = nothing
-			Intercept = nothing
-			Slope = nothing
-			∑Pr_Past = nothing
-
-			return ∑Pr, Pr, iPr 
+			return iχ, ∑χ_F, χ  
 		end #CUMULPR_2_PR_!D
 
 
 
-		function OBSstairs(∑T, iPotEvap, PotEvap, ∑T_PotEvap)
+		function OBSχ_2_χ(iχ, ∑T,  χ_Obs, χ_∑T)
 			Flag_Break = false
 			while !Flag_Break
-				if ∑T_PotEvap[iPotEvap] <= ∑T <= ∑T_PotEvap[iPotEvap+1]
+				if χ_∑T[iχ] <= ∑T <= χ_∑T[iχ+1]
 					Flag_Break = true
 					break
 				else 
-					iPotEvap += 1
+					iχ += 1
 					Flag_Break = false
 				end #if
 			end #while
 	
-			PotEvap = PotEvap[iPotEvap+1]
-		 
-			return PotEvap, iPotEvap
+			χ_F = χ_Obs[iχ+1]
+		
+			return  iχ, χ_F
 		end
-	end # module 1D #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	end # module 1D 
+
+
+
+	# 	function OBSstairs(∑T, iPotEvap, PotEvap, ∑T_PotEvap)
+	# 		Flag_Break = false
+	# 		while !Flag_Break
+	# 			if ∑T_PotEvap[iPotEvap] <= ∑T <= ∑T_PotEvap[iPotEvap+1]
+	# 				Flag_Break = true
+	# 				break
+	# 			else 
+	# 				iPotEvap += 1
+	# 				Flag_Break = false
+	# 			end #if
+	# 		end #while
+	
+	# 		PotEvap = PotEvap[iPotEvap+1]
+		 
+	# 		return PotEvap, iPotEvap
+	# 	end
+	# end # module 1D #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
